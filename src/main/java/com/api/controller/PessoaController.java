@@ -1,8 +1,11 @@
 package com.api.controller;
 
+import com.api.dto.PessoaRequestDto;
+import com.api.dto.PessoaResponseDto;
 import com.api.model.PessoaModel;
 import com.api.service.PessoaService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +30,10 @@ public class PessoaController {
     PessoaService pessoaService;
     
     @PostMapping("/salvar")
-    public ResponseEntity<PessoaModel> salvar(@RequestBody PessoaModel pessoaModel) {
+    public ResponseEntity<PessoaResponseDto> salvar(@RequestBody PessoaRequestDto pessoaRequestDto) {
         
-        return new ResponseEntity<PessoaModel>(pessoaService.salvar(pessoaModel), HttpStatus.CREATED);
+        PessoaModel pessoaModel = pessoaService.salvar(pessoaRequestDto.converterPessoaDtoParaEntidade());
+        return new ResponseEntity<PessoaResponseDto>(PessoaResponseDto.converterEntidadeParaPacienteDto(pessoaModel), HttpStatus.CREATED);
     }
     
     @PutMapping("/alterar")
@@ -39,9 +43,12 @@ public class PessoaController {
     }
     
     @GetMapping("/listar")
-    public ResponseEntity<List<PessoaModel>> listar() {
+    public ResponseEntity<List<PessoaResponseDto>> listar() {
         
-        return new ResponseEntity<>(pessoaService.listar(), HttpStatus.OK);
+        return new ResponseEntity<List<PessoaResponseDto>>(
+                pessoaService.listar().stream().map(paciente
+                        -> PessoaResponseDto.converterEntidadeParaPacienteDto(paciente))
+                        .collect(Collectors.toList()), HttpStatus.OK);
     }
     
     @GetMapping("/buscar/{id}")

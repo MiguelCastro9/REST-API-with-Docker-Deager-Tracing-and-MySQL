@@ -1,6 +1,6 @@
 package com.api.model;
 
-import com.api.enums.TipoContatoenum;
+import com.api.enums.TipoContatoEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,14 +26,14 @@ public class ContatoModel implements Serializable {
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
-    private TipoContatoenum tipo_contato;
+    private TipoContatoEnum tipo_contato;
     @Column(nullable = false)
     private String numero;
 
     public ContatoModel() {
     }
 
-    public ContatoModel(Long id, String email, TipoContatoenum tipo_contato, String numero) {
+    public ContatoModel(Long id, String email, TipoContatoEnum tipo_contato, String numero) {
         this.id = id;
         this.email = email;
         this.tipo_contato = tipo_contato;
@@ -56,11 +56,11 @@ public class ContatoModel implements Serializable {
         this.email = email;
     }
 
-    public TipoContatoenum getTipo_contato() {
+    public TipoContatoEnum getTipo_contato() {
         return tipo_contato;
     }
 
-    public void setTipo_contato(TipoContatoenum tipo_contato) {
+    public void setTipo_contato(TipoContatoEnum tipo_contato) {
         this.tipo_contato = tipo_contato;
     }
 

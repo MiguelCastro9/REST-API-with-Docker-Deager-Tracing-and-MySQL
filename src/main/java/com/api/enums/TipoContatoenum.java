@@ -4,7 +4,7 @@ package com.api.enums;
  *
  * @author Miguel Castro
  */
-public enum TipoContatoenum {
+public enum TipoContatoEnum {
 
     CELULAR,
     TELEFONE_FIXO;
