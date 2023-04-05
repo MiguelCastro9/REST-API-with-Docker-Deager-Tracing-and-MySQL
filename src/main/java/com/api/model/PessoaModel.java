@@ -1,11 +1,16 @@
 package com.api.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,20 +25,30 @@ public class PessoaModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Long id;
-    @Column(name = "nome", nullable = false)
+    @Column(nullable = false)
     private String nome;
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(nullable = false)
+    private String sobrenome;
+    @Column(nullable = false)
+    private String cpf;
+    @OneToMany(mappedBy = "id", targetEntity = ContatoModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ContatoModel> contato;
+    
+    @OneToOne(targetEntity = FisicoModel.class, cascade = CascadeType.ALL)
+    private FisicoModel fisico;
 
     public PessoaModel() {
     }
 
-    public PessoaModel(Long id, String nome, String email) {
+    public PessoaModel(Long id, String nome, String sobrenome, String cpf, List<ContatoModel> contato, FisicoModel fisico) {
         this.id = id;
         this.nome = nome;
-        this.email = email;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+        this.contato = contato;
+        this.fisico = fisico;
     }
 
     public Long getId() {
@@ -52,11 +67,35 @@ public class PessoaModel implements Serializable {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSobrenome() {
+        return sobrenome;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public List<ContatoModel> getContato() {
+        return contato;
+    }
+
+    public void setContato(List<ContatoModel> contato) {
+        this.contato = contato;
+    }
+
+    public FisicoModel getFisico() {
+        return fisico;
+    }
+
+    public void setFisico(FisicoModel fisico) {
+        this.fisico = fisico;
     }
 }
