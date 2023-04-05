@@ -6,6 +6,7 @@ import com.api.model.PessoaModel;
 import com.api.service.PessoaService;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class PessoaController {
     PessoaService pessoaService;
     
     @PostMapping("/salvar")
-    public ResponseEntity<PessoaResponseDto> salvar(@RequestBody PessoaRequestDto pessoaRequestDto) {
+    public ResponseEntity<PessoaResponseDto> salvar(@Valid @RequestBody PessoaRequestDto pessoaRequestDto) {
         
         PessoaModel pessoaModel = pessoaService.salvar(pessoaRequestDto.converterPessoaDtoParaEntidade());
         return new ResponseEntity<PessoaResponseDto>(PessoaResponseDto.converterEntidadeParaPacienteDto(pessoaModel), HttpStatus.CREATED);
     }
     
     @PutMapping("/alterar")
-    public ResponseEntity<PessoaModel> alterar(@RequestBody PessoaModel pessoaModel) {
+    public ResponseEntity<PessoaModel> alterar(@Valid @RequestBody PessoaModel pessoaModel) {
         
         return new ResponseEntity<PessoaModel>(pessoaService.alterar(pessoaModel), HttpStatus.OK);
     }
