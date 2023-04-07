@@ -26,41 +26,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
-    
+
     @Autowired
     PessoaService pessoaService;
-    
+
     @PostMapping("/salvar")
     public ResponseEntity<PessoaResponseDto> salvar(@Valid @RequestBody PessoaRequestDto pessoaRequestDto) {
-        
+
         PessoaModel pessoaModel = pessoaService.salvar(pessoaRequestDto.converterPessoaDtoParaEntidade());
         return new ResponseEntity<PessoaResponseDto>(PessoaResponseDto.converterEntidadeParaPacienteDto(pessoaModel), HttpStatus.CREATED);
     }
-    
+
     @PutMapping("/alterar")
-    public ResponseEntity<PessoaModel> alterar(@Valid @RequestBody PessoaModel pessoaModel) {
-        
-        return new ResponseEntity<PessoaModel>(pessoaService.alterar(pessoaModel), HttpStatus.OK);
+    public ResponseEntity<PessoaResponseDto> alterar(@Valid @RequestBody PessoaRequestDto pessoaRequestDto) {
+
+                PessoaModel pessoaModel = pessoaService.alterar(pessoaRequestDto.converterPessoaDtoParaEntidade());
+        return new ResponseEntity<PessoaResponseDto>(PessoaResponseDto.converterEntidadeParaPacienteDto(pessoaModel), HttpStatus.CREATED);
     }
-    
+
     @GetMapping("/listar")
     public ResponseEntity<List<PessoaResponseDto>> listar() {
-        
+
         return new ResponseEntity<List<PessoaResponseDto>>(
                 pessoaService.listar().stream().map(paciente
                         -> PessoaResponseDto.converterEntidadeParaPacienteDto(paciente))
                         .collect(Collectors.toList()), HttpStatus.OK);
     }
-    
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
-        
+
         return new ResponseEntity<>(pessoaService.buscar(id), HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<?> deletar(@PathVariable("id") Long id) {
-        
+
         pessoaService.deletar(id);
         return new ResponseEntity(HttpStatus.OK);
     }

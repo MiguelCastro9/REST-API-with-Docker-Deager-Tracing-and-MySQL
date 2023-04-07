@@ -2,16 +2,11 @@ package com.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -36,30 +31,21 @@ public class PessoaModel implements Serializable {
     private Date data_nascimento;
     @Column(nullable = false)
     private String cpf;
-    @OneToMany(mappedBy = "id", targetEntity = ContatoModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ContatoModel> contato;
     
-    @OneToOne(targetEntity = FisicoModel.class, cascade = CascadeType.ALL)
-    private FisicoModel fisico;
-
     public PessoaModel() {
     }
 
-    public PessoaModel(Long id, String nome, Date data_nascimento, String cpf, List<ContatoModel> contato, FisicoModel fisico) {
+    public PessoaModel(Long id, String nome, Date data_nascimento, String cpf) {
         this.id = id;
         this.nome = nome;
         this.data_nascimento = data_nascimento;
         this.cpf = cpf;
-        this.contato = contato;
-        this.fisico = fisico;
     }
 
-    public PessoaModel(String nome, Date data_nascimento, String cpf, List<ContatoModel> contato, FisicoModel fisico) {
+    public PessoaModel(String nome, Date data_nascimento, String cpf) {
         this.nome = nome;
         this.data_nascimento = data_nascimento;
         this.cpf = cpf;
-        this.contato = contato;
-        this.fisico = fisico;
     }
     
     public Long getId() {
@@ -92,21 +78,5 @@ public class PessoaModel implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public List<ContatoModel> getContato() {
-        return contato;
-    }
-
-    public void setContato(List<ContatoModel> contato) {
-        this.contato = contato;
-    }
-
-    public FisicoModel getFisico() {
-        return fisico;
-    }
-
-    public void setFisico(FisicoModel fisico) {
-        this.fisico = fisico;
     }
 }

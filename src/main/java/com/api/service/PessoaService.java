@@ -45,19 +45,9 @@ public class PessoaService {
         private void verificaValorExistente(PessoaModel pessoaModel) {
 
         PessoaModel pacienteCpf = pessoaRepository.findByCpf(pessoaModel.getCpf());
-        PessoaModel pacienteContatoEmail = pessoaRepository.findByContatoEmail(pessoaModel.getContato().get(0).getEmail());
-        PessoaModel pacienteContatoNumero = pessoaRepository.findByContatoNumero(pessoaModel.getContato().get(0).getNumero());
 
         if (pacienteCpf != null) {
             throw new MensagemCustomException(String.format("O CPF [%s] já existe.", pessoaModel.getCpf()));
-        }
-
-        if (pacienteContatoEmail != null) {
-            throw new MensagemCustomException(String.format("O e-mail de contato [%s] já existe.", pessoaModel.getContato().get(0).getEmail()));
-        }
-
-        if (pacienteContatoNumero != null) {
-            throw new MensagemCustomException(String.format("O número de contato [%s] já existe.", pessoaModel.getContato().get(0).getNumero()));
         }
     }
 }
