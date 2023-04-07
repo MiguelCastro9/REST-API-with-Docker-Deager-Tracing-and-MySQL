@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -24,10 +29,13 @@ public class ContatoModel implements Serializable {
     @Column(nullable = false)
     private Long id;
     @Column(nullable = false)
+    @Email(message = "E-mail inválido.")
     private String email;
     @Column(nullable = false)
     private TipoContatoEnum tipo_contato;
     @Column(nullable = false)
+    @Length(min = 8, max = 12, message = "Número inválido.")
+    @Pattern(regexp = "^\\d{1,9}$", message = "Número inválido.")
     private String numero;
 
     public ContatoModel() {

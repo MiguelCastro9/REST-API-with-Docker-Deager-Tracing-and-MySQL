@@ -3,6 +3,7 @@ package com.api.exception;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.validation.ConstraintViolation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,19 @@ public class ExceptionHandlerCustom extends ResponseEntityExceptionHandler {
 
         String mensagemUsuario = ex.getMessage();
         String mensagemDesenvolvedor = ex.getMessage();
+        List<MensagemException> mensagem = Arrays.asList(new MensagemException(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, mensagem, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(javax.validation.ConstraintViolationException ex, WebRequest request) {
+        String mensagemUsuario = "";
+        String mensagemDesenvolvedor = "";
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            mensagemUsuario = violation.getMessageTemplate();
+            mensagemDesenvolvedor = violation.getMessageTemplate();
+            break;
+        }
         List<MensagemException> mensagem = Arrays.asList(new MensagemException(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, mensagem, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
