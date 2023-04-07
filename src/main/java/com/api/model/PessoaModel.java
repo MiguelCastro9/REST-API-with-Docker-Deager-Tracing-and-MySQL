@@ -29,23 +29,19 @@ public class PessoaModel implements Serializable {
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data_nascimento;
-    @Column(nullable = false)
-    private String cpf;
     
     public PessoaModel() {
     }
 
-    public PessoaModel(Long id, String nome, Date data_nascimento, String cpf) {
+    public PessoaModel(Long id, String nome, Date data_nascimento) {
         this.id = id;
         this.nome = nome;
         this.data_nascimento = data_nascimento;
-        this.cpf = cpf;
     }
 
-    public PessoaModel(String nome, Date data_nascimento, String cpf) {
+    public PessoaModel(String nome, Date data_nascimento) {
         this.nome = nome;
         this.data_nascimento = data_nascimento;
-        this.cpf = cpf;
     }
     
     public Long getId() {
@@ -70,13 +66,5 @@ public class PessoaModel implements Serializable {
 
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 }

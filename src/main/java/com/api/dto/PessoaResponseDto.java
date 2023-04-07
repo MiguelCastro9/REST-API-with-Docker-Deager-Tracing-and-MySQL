@@ -12,18 +12,16 @@ public class PessoaResponseDto {
     private Long id;
     private String nome;
     private Date data_nascimento;
-    private String cpf;
 
-    public PessoaResponseDto(Long id, String nome, Date data_nascimento, String cpf) {
+    public PessoaResponseDto(Long id, String nome, Date data_nascimento) {
         this.id = id;
         this.nome = nome;
         this.data_nascimento = data_nascimento;
-        this.cpf = cpf;
     }
 
     public static PessoaResponseDto converterEntidadeParaPacienteDto(PessoaModel pessoaModel) {
         return new PessoaResponseDto(pessoaModel.getId(), pessoaModel.getNome(), 
-                pessoaModel.getData_nascimento(), pessoaModel.getCpf());
+                pessoaModel.getData_nascimento());
     }
 
     public Long getId() {
@@ -48,13 +46,5 @@ public class PessoaResponseDto {
 
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 }

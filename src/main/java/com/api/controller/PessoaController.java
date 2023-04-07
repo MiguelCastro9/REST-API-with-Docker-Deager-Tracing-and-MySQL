@@ -40,7 +40,7 @@ public class PessoaController {
     @PutMapping("/alterar")
     public ResponseEntity<PessoaResponseDto> alterar(@Valid @RequestBody PessoaRequestDto pessoaRequestDto) {
 
-                PessoaModel pessoaModel = pessoaService.alterar(pessoaRequestDto.converterPessoaDtoParaEntidade());
+        PessoaModel pessoaModel = pessoaService.alterar(pessoaRequestDto.converterPessoaDtoParaEntidade());
         return new ResponseEntity<PessoaResponseDto>(PessoaResponseDto.converterEntidadeParaPacienteDto(pessoaModel), HttpStatus.CREATED);
     }
 

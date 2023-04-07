@@ -1,6 +1,5 @@
 package com.api.service;
 
-import com.api.exception.MensagemCustomException;
 import com.api.model.PessoaModel;
 import com.api.repository.PessoaRepository;
 import java.util.List;
@@ -20,13 +19,11 @@ public class PessoaService {
 
     public PessoaModel salvar(PessoaModel pessoaModel) {
         
-        verificaValorExistente(pessoaModel);
         return pessoaRepository.save(pessoaModel);
     }
 
     public PessoaModel alterar(PessoaModel pessoaModel) {
 
-        verificaValorExistente(pessoaModel);
         return pessoaRepository.saveAndFlush(pessoaModel);
     }
 
@@ -40,14 +37,5 @@ public class PessoaService {
 
     public void deletar(Long id) {
         pessoaRepository.deleteById(id);
-    }
-    
-        private void verificaValorExistente(PessoaModel pessoaModel) {
-
-        PessoaModel pacienteCpf = pessoaRepository.findByCpf(pessoaModel.getCpf());
-
-        if (pacienteCpf != null) {
-            throw new MensagemCustomException(String.format("O CPF [%s] já existe.", pessoaModel.getCpf()));
-        }
     }
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
 
 /**
  *
@@ -18,11 +17,9 @@ public class PessoaRequestDto {
     private String nome;
     @NotNull(message = "Data de nascimento é obrigatório.")
     private Date data_nascimento;
-    @CPF(message = "CPF mal formatado.")
-    private String cpf;
 
     public PessoaModel converterPessoaDtoParaEntidade() {
-        return new PessoaModel(nome, data_nascimento, cpf);
+        return new PessoaModel(nome, data_nascimento);
     }
 
     public String getNome() {
@@ -31,14 +28,6 @@ public class PessoaRequestDto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public Date getData_nascimento() {
@@ -51,6 +40,6 @@ public class PessoaRequestDto {
 
     @Override
     public String toString() {
-        return "PessoaRequestDto{" + "nome=" + nome + ", data_nascimento=" + data_nascimento + ", cpf=" + cpf + '}';
+        return "PessoaRequestDto{" + "nome=" + nome + ", data_nascimento=" + data_nascimento + '}';
     }
 }
