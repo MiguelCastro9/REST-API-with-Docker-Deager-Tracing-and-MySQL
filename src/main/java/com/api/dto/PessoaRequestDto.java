@@ -11,6 +11,8 @@ import org.hibernate.validator.constraints.Length;
  * @author Miguel Castro
  */
 public class PessoaRequestDto {
+    
+    private Long id;
 
     @NotBlank(message = "Nome é obrigatório.")
     @Length(min = 3, max = 40, message = "Nome requer no mínimo {min} e no máximo {max} caracteres.")
@@ -21,7 +23,19 @@ public class PessoaRequestDto {
     public PessoaModel converterPessoaDtoParaEntidade() {
         return new PessoaModel(nome, data_nascimento);
     }
+    
+    public PessoaModel converterPessoaAlteradaDtoParaEntidade() {
+        return new PessoaModel(id, nome, data_nascimento);
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getNome() {
         return nome;
     }
