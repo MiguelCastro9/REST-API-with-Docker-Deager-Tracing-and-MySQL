@@ -17,9 +17,3 @@ so just build the application to download the dependencies that are managed by M
 but first, Docker must be installed and the container images encoded in the <code>docker-compose.yml</code> file initialized, 
 with the <code>docker-compose up -d</code> command, and when the application is running, just access the link <code>http://localhost:16686/search</code> to parse jeager tracings.
 
-<br>
-
-
-## Demo
-![Gravação de Tela 2023-04-07 às 15 50 29](https://user-images.githubusercontent.com/56695817/230662190-eaeb4ca6-d399-4414-88a7-d6076804310c.gif)
-
